@@ -1,0 +1,102 @@
+[package]
+edition = "2021"
+name = "ylab-edge-pro"
+version = "0.1.0"
+license = "MIT OR Apache-2.0"
+resolver = "2"
+
+[lib]
+name = "ylab"
+path = "src/ylab/mod.rs"
+
+[dependencies]
+cortex-m = { version = "0.7.6", features = ["inline-asm", "critical-section-single-core"] }
+cortex-m-rt = "0.7.0"
+
+defmt = "0.3"
+defmt-rtt = "0.4"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+
+embassy-stm32 = { version = "0.1.0", features = ["defmt", "stm32f446ze", "memory-x", "time-driver-any", "exti"]}
+embassy-embedded-hal = { version = "0.2.0", features = ["defmt"] }
+embassy-executor = { version = "0.6.0", features = ["arch-cortex-m", "executor-thread", "executor-interrupt", "defmt", "integrated-timers"] }
+embassy-futures = { version = "0.1.0" }
+embassy-sync = { version = "0.6.0", features = ["defmt"] }
+embassy-time = { version = "0.3.0", features = ["defmt", "defmt-timestamp-uptime"] }
+#embassy-usb = { version = "0.3.0", features = ["defmt"] }
+#embassy-usb-logger = { version = "0.2.0" }
+
+log = "0.4"
+
+
+static_cell = "2.0.0"
+fixed = "1.23.1"
+fixed-macro = "1.2.0"
+heapless = "0.8.0"
+#usbd-serial = "0.2.0"
+#usb-device = "0.3.1"
+nb = "1.1.0"
+#scd4x = { version = "0.3.0", default-features=false, features = ["scd41"] }
+scd4x = { version = "0.3.0"}
+ryu = "1.0.17"
+lsm6dsox = "1.0.1"
+xca9548a = "0.2.1"
+embedded-hal-async = "1.0.0"
+#ads129xx = "0.2.1"
+ads1299 = { path = "../ads1299-rs" }
+embedded-hal = "1.0.0"
+sen5x-rs = "0.2.1"
+
+[patch.crates-io]
+
+# cargo build/run
+[profile.dev]
+codegen-units = 1
+debug = 2
+debug-assertions = true
+incremental = false
+opt-level = 's'
+overflow-checks = true
+
+# cargo build/run --release
+[profile.release]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
+
+# do not optimize proc-macro crates = faster builds from scratch
+[profile.dev.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false
+
+[profile.release.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+overflow-checks = false
+
+# cargo test
+[profile.test]
+codegen-units = 1
+debug = 2
+debug-assertions = true
+incremental = false
+opt-level = 's'
+overflow-checks = true
+
+# cargo test --release
+[profile.bench]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
