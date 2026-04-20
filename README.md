@@ -3,6 +3,8 @@ Final Deliverable for TSS project Human Factors &amp; Engineer Psychology Utwent
 
 This repository contains the files belonging to a University Project done by Ainur Zagitov, Jielong de Ridder, and Sytse Vos.
 
+This repository used both Zed and Thonny as code editors in the creation of the project which will need to be installed to run the codes
+
 # Folder orientation
 The "TSS Project" is the actual project deliverable text document as written by the students
 The "Code" Folder contains the 2 seperate folders.
